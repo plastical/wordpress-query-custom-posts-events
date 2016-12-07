@@ -9,16 +9,16 @@ import keyBy from 'lodash/keyBy';
  * Internal dependencies
  */
 import * as selectors from '../src/selectors';
-import posts from './fixtures/posts';
+import users from './fixtures/users';
 
-const postsById = keyBy( posts, 'id' );
+const usersById = keyBy(users, 'id');
 
-const state = deepFreeze( {
-	posts: {
-		items: postsById,
+const state = deepFreeze({
+	users: {
+		items: usersById,
 		requests: {
-			'wordpress-query-component-tests': false,
-			'some-pending-post-title': true,
+			'wclark': false,
+			'pending-user': true,
 		},
 		totalPages: {
 			'{"paged":1}': '3',
@@ -31,117 +31,117 @@ const state = deepFreeze( {
 		},
 		queries: {
 			'{"paged":1}': [
-				6,
+				2,
 				5,
 			],
 			'{"paged":2}': [
-				4,
-				3,
+				6,
+				8,
 			]
 		},
 		slugs: {
-			'wordpress-query-component-tests': 6,
-			'local-development-requires-testing': 5,
-			'api-tests': 4,
-			'private-post-example': 3,
+			'wclark': 2,
+			'joanne-smith': 5,
+			'robrad': 6,
+			'mattspring': 8,
 		}
 	}
-} );
+});
 
-describe( 'Post selectors', function() {
-	it( 'should contain isRequestingPost method', function() {
-		expect( selectors.isRequestingPost ).to.be.a( 'function' );
-	} );
+describe('User selectors', function() {
+	it('should contain isRequestingUser method', function() {
+		expect(selectors.isRequestingUser).to.be.a('function');
+	});
 
-	it( 'should contain getPostIdFromSlug method', function() {
-		expect( selectors.getPostIdFromSlug ).to.be.a( 'function' );
-	} );
+	it('should contain getUserIdFromSlug method', function() {
+		expect(selectors.getUserIdFromSlug).to.be.a('function');
+	});
 
-	it( 'should contain getPost method', function() {
-		expect( selectors.getPost ).to.be.a( 'function' );
-	} );
+	it('should contain getUser method', function() {
+		expect(selectors.getUser).to.be.a('function');
+	});
 
-	it( 'should contain isRequestingPostsForQuery method', function() {
-		expect( selectors.isRequestingPostsForQuery ).to.be.a( 'function' );
-	} );
+	it('should contain isRequestingUsersForQuery method', function() {
+		expect(selectors.isRequestingUsersForQuery).to.be.a('function');
+	});
 
-	it( 'should contain getPostsForQuery method', function() {
-		expect( selectors.getPostsForQuery ).to.be.a( 'function' );
-	} );
+	it('should contain getUsersForQuery method', function() {
+		expect(selectors.getUsersForQuery).to.be.a('function');
+	});
 
-	it( 'should contain getTotalPagesForQuery method', function() {
-		expect( selectors.getTotalPagesForQuery ).to.be.a( 'function' );
-	} );
+	it('should contain getTotalPagesForQuery method', function() {
+		expect(selectors.getTotalPagesForQuery).to.be.a('function');
+	});
 
-	describe( 'isRequestingPost', function() {
-		it( 'Should get `false` if the post has not been requested yet', function() {
-			expect( selectors.isRequestingPost( state, 'unrequested-post' ) ).to.be.false;
-		} );
+	describe('isRequestingUser', function() {
+		it('Should get `false` if the user has not been requested yet', function() {
+			expect(selectors.isRequestingUser(state, 'unrequested-user')).to.be.false;
+		});
 
-		it( 'Should get `false` if this post has already been fetched', function() {
-			expect( selectors.isRequestingPost( state, 'wordpress-query-component-tests' ) ).to.be.false;
-		} );
+		it('Should get `false` if this user has already been fetched', function() {
+			expect(selectors.isRequestingUser(state, 'wclark')).to.be.false;
+		});
 
-		it( 'Should get `true` if this post is being fetched', function() {
-			expect( selectors.isRequestingPost( state, 'some-pending-post-title' ) ).to.be.true;
-		} );
-	} );
+		it('Should get `true` if this user is being fetched', function() {
+			expect(selectors.isRequestingUser(state, 'pending-user')).to.be.true;
+		});
+	});
 
-	describe( 'getPostIdFromSlug', function() {
-		it( 'Should get `false` if the post has not been requested yet', function() {
-			expect( selectors.getPostIdFromSlug( state, 'unrequested-post' ) ).to.be.false;
-		} );
+	describe('getUserIdFromSlug', function() {
+		it('Should get `false` if the user has not been requested yet', function() {
+			expect(selectors.getUserIdFromSlug( state, 'unrequested-user')).to.be.false;
+		});
 
-		it( 'Should get the post ID if this post is in our state', function() {
-			expect( selectors.getPostIdFromSlug( state, 'wordpress-query-component-tests' ) ).to.eql( 6 );
-		} );
-	} );
+		it( 'Should get the user ID if this user is in our state', function() {
+			expect(selectors.getUserIdFromSlug( state, 'wclark')).to.eql(2);
+		});
+	});
 
-	describe( 'getPost', function() {
-		it( 'Should get `undefined` if the post has not been requested yet', function() {
-			expect( selectors.getPost( state, 9 ) ).to.be.undefined;
-		} );
+	describe('getUser', function() {
+		it('Should get `undefined` if the user has not been requested yet', function() {
+			expect(selectors.getUser(state, 10)).to.be.undefined;
+		});
 
-		it( 'Should get the post object if this post is in our state', function() {
-			expect( selectors.getPost( state, 6 ) ).to.eql( postsById[ 6 ] );
-		} );
-	} );
+		it('Should get the user object if this user is in our state', function() {
+			expect(selectors.getUser(state, 2)).to.eql(usersById[2]);
+		});
+	});
 
-	describe( 'isRequestingPostsForQuery', function() {
-		it( 'Should get `false` if the post query has not been requested yet', function() {
-			expect( selectors.isRequestingPostsForQuery( state, { paged: 4 } ) ).to.be.false;
-		} );
+	describe('isRequestingUsersForQuery', function() {
+		it('Should get `false` if the user query has not been requested yet', function() {
+			expect(selectors.isRequestingUsersForQuery(state, { paged: 4 })).to.be.false;
+		});
 
-		it( 'Should get `false` if this post query has already been fetched', function() {
-			expect( selectors.isRequestingPostsForQuery( state, { paged: 1 } ) ).to.be.false;
-		} );
+		it('Should get `false` if this user query has already been fetched', function() {
+			expect(selectors.isRequestingUsersForQuery(state, { paged: 1 } )).to.be.false;
+		});
 
-		it( 'Should get `true` if this post query is being fetched', function() {
-			expect( selectors.isRequestingPostsForQuery( state, { paged: 3 } ) ).to.be.true;
-		} );
-	} );
+		it('Should get `true` if this user query is being fetched', function() {
+			expect(selectors.isRequestingUsersForQuery(state, { paged: 3 })).to.be.true;
+		});
+	});
 
-	describe( 'getPostsForQuery', function() {
-		it( 'Should get null if the post query has not been requested yet', function() {
-			expect( selectors.getPostsForQuery( state, { paged: 4 } ) ).to.be.null;
-		} );
+	describe('getUsersForQuery', function() {
+		it('Should get null if the user query has not been requested yet', function() {
+			expect(selectors.getUsersForQuery(state, { paged: 4 })).to.be.null;
+		});
 
-		it( 'Should get a list of post objects if the response is in our state', function() {
-			const postList = [
-				postsById[ 6 ],
-				postsById[ 5 ]
+		it('Should get a list of user objects if the response is in our state', function() {
+			const userList = [
+				usersById[2],
+				usersById[5]
 			];
-			expect( selectors.getPostsForQuery( state, { paged: 1 } ) ).to.eql( postList );
-		} );
-	} );
+			expect(selectors.getUsersForQuery(state, { paged: 1 })).to.eql(userList);
+		});
+	});
 
-	describe( 'getTotalPagesForQuery', function() {
-		it( 'Should get a default number (1) of pages available if the query has not been requested yet', function() {
-			expect( selectors.getTotalPagesForQuery( state, { paged: 4 } ) ).to.eql( 1 );
-		} );
+	describe('getTotalPagesForQuery', function() {
+		it('Should get a default number (1) of pages available if the query has not been requested yet', function() {
+			expect(selectors.getTotalPagesForQuery(state, { paged: 4 })).to.eql(1);
+		});
 
-		it( 'Should get the number of pages (pagination) available for a query', function() {
-			expect( selectors.getTotalPagesForQuery( state, { paged: 1 } ) ).to.eql( 3 );
-		} );
-	} );
-} );
+		it('Should get the number of pages (pagination) available for a query', function() {
+			expect(selectors.getTotalPagesForQuery(state, { paged: 1 })).to.eql(3);
+		});
+	});
+});

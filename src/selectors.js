@@ -2,95 +2,95 @@
  * Internal dependencies
  */
 import {
-	getSerializedPostsQuery
+	getSerializedUsersQuery
 } from './utils';
 
 /**
- * Returns a post object by its global ID.
+ * Returns a user object by its global ID.
  *
  * @param  {Object} state    Global state tree
- * @param  {String} globalId Post global ID
- * @return {Object}          Post object
+ * @param  {String} globalId User global ID
+ * @return {Object}          User object
  */
-export function getPost( state, globalId ) {
-	return state.posts.items[ globalId ];
+export function getUser(state, globalId) {
+	return state.users.items[globalId];
 }
 
 /**
- * Returns an array of posts for the posts query, or null if no posts have been
+ * Returns an array of users for the users query, or null if no users have been
  * received.
  *
  * @param  {Object}  state  Global state tree
- * @param  {Object}  query  Post query object
- * @return {?Array}         Posts for the post query
+ * @param  {Object}  query  User query object
+ * @return {?Array}         Users for the user query
  */
-export function getPostsForQuery( state, query ) {
-	const serializedQuery = getSerializedPostsQuery( query );
-	if ( ! state.posts.queries[ serializedQuery ] ) {
+export function getUsersForQuery(state, query) {
+	const serializedQuery = getSerializedUsersQuery(query);
+	if (!state.users.queries[serializedQuery]) {
 		return null;
 	}
 
-	return state.posts.queries[ serializedQuery ].map( ( globalId ) => {
-		return getPost( state, globalId );
-	} ).filter( Boolean );
+	return state.users.queries[serializedQuery].map((globalId) => {
+		return getUser(state, globalId);
+	}).filter(Boolean);
 }
 
 /**
- * Returns true if currently requesting posts for the posts query, or false
+ * Returns true if currently requesting users for the users query, or false
  * otherwise.
  *
  * @param  {Object}  state  Global state tree
- * @param  {Object}  query  Post query object
- * @return {Boolean}        Whether posts are being requested
+ * @param  {Object}  query  User query object
+ * @return {Boolean}        Whether users are being requested
  */
-export function isRequestingPostsForQuery( state, query ) {
-	const serializedQuery = getSerializedPostsQuery( query );
-	return !! state.posts.queryRequests[ serializedQuery ];
+export function isRequestingUsersForQuery(state, query) {
+	const serializedQuery = getSerializedUsersQuery(query);
+	return !!state.users.queryRequests[serializedQuery];
 }
 
 /**
  * Returns the number of total pages available for a given query.
  *
  * @param  {Object}  state  Global state tree
- * @param  {Object}  query  Post query object
+ * @param  {Object}  query  User query object
  * @return {int}            Number of pages
  */
-export function getTotalPagesForQuery( state, query ) {
-	const serializedQuery = getSerializedPostsQuery( query );
-	if ( ! state.posts.totalPages[ serializedQuery ] ) {
+export function getTotalPagesForQuery(state, query) {
+	const serializedQuery = getSerializedUsersQuery(query);
+	if (!state.users.totalPages[serializedQuery]) {
 		return 1;
 	}
 
-	return parseInt( state.posts.totalPages[ serializedQuery ], 10 );
+	return parseInt(state.users.totalPages[serializedQuery], 10);
 }
 
 /**
- * Returns true if a request is in progress for the specified post, or
+ * Returns true if a request is in progress for the specified user, or
  * false otherwise.
  *
  * @param  {Object}  state     Global state tree
- * @param  {String}  postSlug  Post Slug
+ * @param  {String}  userSlug  User Slug
  * @return {Boolean}           Whether request is in progress
  */
-export function isRequestingPost( state, postSlug ) {
-	if ( ! state.posts.requests ) {
+export function isRequestingUser(state, userSlug) {
+	if (!state.users.requests) {
 		return false;
 	}
 
-	return !! state.posts.requests[ postSlug ];
+	return !!state.users.requests[userSlug];
 }
 
 /**
- * Returns the Post ID for a given page slug
+ * Returns the User ID for a given page slug
  *
  * @param  {Object}  state  Global state tree
- * @param  {string}  slug   Post slug
- * @return {int}            Post ID
+ * @param  {string}  slug   User slug
+ * @return {int}            User ID
  */
-export function getPostIdFromSlug( state, slug ) {
-	if ( ! state.posts.slugs[ slug ] ) {
+export function getUserIdFromSlug(state, slug) {
+	if (!state.users.slugs[slug]) {
 		return false;
 	}
 
-	return state.posts.slugs[ slug ];
+	return state.users.slugs[slug];
 }

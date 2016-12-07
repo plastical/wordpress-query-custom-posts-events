@@ -3,37 +3,34 @@
  */
 import omitBy from 'lodash/omitBy';
 
-const DEFAULT_POST_QUERY = {
-	_embed: true,
+const DEFAULT_USERS_QUERY = {
 	number: 10,
 	offset: 0,
-	order: 'DESC',
-	order_by: 'date',
-	type: 'post',
-	status: 'publish',
-	sticky: 'include',
-	search: ''
+  role: 'Subscriber',
+	order_by: 'display_name',
+	order: 'ASC',
+	fields: 'all_with_meta'
 };
 
 /**
- * Returns a normalized posts query, excluding any values which match the
- * default post query.
+ * Returns a normalized users query, excluding any values which match the
+ * default user query.
  *
- * @param  {Object} query Posts query
- * @return {Object}       Normalized posts query
+ * @param  {Object} query Users query
+ * @return {Object}       Normalized users query
  */
-export function getNormalizedPostsQuery( query ) {
-	return omitBy( query, ( value, key ) => DEFAULT_POST_QUERY[ key ] === value );
+export function getNormalizedUsersQuery(query) {
+	return omitBy(query, (value, key) => DEFAULT_USERS_QUERY[key] === value);
 }
 
 /**
- * Returns a serialized posts query, used as the key in the
- * `state.posts.queries` state object.
+ * Returns a serialized users query, used as the key in the
+ * `state.users.queries` state object.
  *
- * @param  {Object} query  Posts query
- * @return {String}        Serialized posts query
+ * @param  {Object} query  Users query
+ * @return {String}        Serialized users query
  */
-export function getSerializedPostsQuery( query = {} ) {
-	const normalizedQuery = getNormalizedPostsQuery( query );
-	return JSON.stringify( normalizedQuery ).toLocaleLowerCase();
+export function getSerializedUsersQuery(query = {}) {
+	const normalizedQuery = getNormalizedUsersQuery(query);
+	return JSON.stringify(normalizedQuery).toLocaleLowerCase();
 }

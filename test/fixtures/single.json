@@ -1,33 +1,22 @@
 {
-  "id": 7,
-  "date": "2016-10-26T17:55:22",
-  "date_gmt": "2016-10-26T21:55:22",
-  "guid": {
-	"rendered": "https://wpapi.local/?p=7"
-  },
-  "modified": "2016-10-26T21:48:24",
-  "modified_gmt": "2016-10-27T01:48:24",
-  "slug": "a-single-post",
-  "type": "post",
-  "link": "https://wpapi.local/2016/10/a-single-post",
-  "title": {
-	"rendered": "A Single Post"
-  },
-  "content": {
-	"rendered": "content",
-	"protected": false
-  },
-  "excerpt": {
-	"rendered": "excerpt",
-	"protected": false
-  },
-  "author": 1,
-  "featured_media": 0,
-  "comment_status": "open",
-  "ping_status": "open",
-  "sticky": false,
-  "format": "standard",
+  "id": 9,
+  "name": "Billy Bob",
+  "url": "",
+  "description": "",
+  "link": "https:\/\/localhost\/author\/billy-bob\/",
+  "slug": "billy-bob",
+  "avatar_urls": "",
   "meta": {},
-  "categories": [],
-  "tags": []
+  "_links": {
+    "self": [
+      {
+        "href":"https:\/\/localhost\/wp-json\/wp\/v2\/users\/9"
+      }
+    ],
+    "collection": [
+      {
+        "href":"https:\/\/localhost\/wp-json\/wp\/v2\/users"
+      }
+    ]
+  }
 }

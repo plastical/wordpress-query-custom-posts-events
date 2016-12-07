@@ -13,33 +13,33 @@ import debugFactory from 'debug';
 import { isRequestingPostsForQuery, isRequestingPost } from './selectors';
 import { requestPosts, requestPost } from './state';
 
-const debug = debugFactory( 'query:post' );
+const debug = debugFactory( 'query:user' );
 
 class QueryPosts extends Component {
 	componentWillMount() {
-		this.request( this.props );
+		this.request(this.props);
 	}
 
-	componentWillReceiveProps( nextProps ) {
-		if ( this.props.postSlug === nextProps.postSlug &&
-				shallowEqual( this.props.query, nextProps.query ) ) {
+	componentWillReceiveProps(nextProps) {
+		if (this.props.userSlug === nextProps.userSlug &&
+				shallowEqual( this.props.query, nextProps.query)) {
 			return;
 		}
 
-		this.request( nextProps );
+		this.request(nextProps);
 	}
 
-	request( props ) {
-		const single = !! props.postSlug;
+	request(props) {
+		const single = !!props.userSlug;
 
-		if ( ! single && ! props.requestingPosts ) {
-			debug( `Request post list using query ${ props.query }` );
-			props.requestPosts( props.query );
+		if (!single && !props.requestingPosts) {
+			debug(`Request user list using query ${props.query}`);
+			props.requestPosts(props.query);
 		}
 
-		if ( single && ! props.requestingPost ) {
-			debug( `Request single post ${ props.postSlug }` );
-			props.requestPost( props.postSlug );
+		if (single && !props.requestingPost) {
+			debug(`Request single user ${props.userSlug}`);
+			props.requestPost(props.userSlug);
 		}
 	}
 
@@ -49,7 +49,7 @@ class QueryPosts extends Component {
 }
 
 QueryPosts.propTypes = {
-	postSlug: PropTypes.string,
+	userSlug: PropTypes.string,
 	query: PropTypes.object,
 	requestingPosts: PropTypes.bool,
 	requestPosts: PropTypes.func
@@ -60,17 +60,17 @@ QueryPosts.defaultProps = {
 };
 
 export default connect(
-	( state, ownProps ) => {
-		const { postSlug, query } = ownProps;
+	(state, ownProps) => {
+		const {userSlug, query} = ownProps;
 		return {
-			requestingPost: isRequestingPost( state, postSlug ),
-			requestingPosts: isRequestingPostsForQuery( state, query )
+			requestingPost: isRequestingPost(state, userSlug),
+			requestingPosts: isRequestingPostsForQuery(state, query)
 		};
 	},
-	( dispatch ) => {
-		return bindActionCreators( {
+	(dispatch) => {
+		return bindActionCreators({
 			requestPosts,
 			requestPost
-		}, dispatch );
+		}, dispatch);
 	}
-)( QueryPosts );
+)(QueryPosts);
