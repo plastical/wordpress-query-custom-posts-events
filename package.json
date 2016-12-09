@@ -4,7 +4,7 @@
   "description": "A component for fetching WordPress users from the REST API.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryanvannin/wordpress-query-users"
+    "url": "git+https://github.com/ryanvannin/wordpress-query-users.git"
   },
   "keywords": [
     "react",
@@ -12,7 +12,7 @@
     "wordpress",
     "wpapi"
   ],
-  "license": "GPL-2.0+",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.17.0",
@@ -56,5 +56,13 @@
     "preversion": "npm test",
     "version": "npm run build && git add -A lib",
     "postversion": "git push && git push --tags"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/ryanvannin/wordpress-query-users/issues"
+  },
+  "homepage": "https://github.com/ryanvannin/wordpress-query-users#readme",
+  "directories": {
+    "test": "test"
+  },
+  "author": "Ryan Vannin <ryan@plastical.com> (http://plastical.com)"
 }

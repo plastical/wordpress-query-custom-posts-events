@@ -10,12 +10,12 @@ import debugFactory from 'debug';
 /**
  * Internal dependencies
  */
-import { isRequestingPostsForQuery, isRequestingPost } from './selectors';
-import { requestPosts, requestPost } from './state';
+import { isRequestingUsersForQuery, isRequestingUser } from './selectors';
+import { requestUsers, requestUser } from './state';
 
 const debug = debugFactory( 'query:user' );
 
-class QueryPosts extends Component {
+class QueryUsers extends Component {
 	componentWillMount() {
 		this.request(this.props);
 	}
@@ -32,14 +32,14 @@ class QueryPosts extends Component {
 	request(props) {
 		const single = !!props.userSlug;
 
-		if (!single && !props.requestingPosts) {
+		if (!single && !props.requestingUsers) {
 			debug(`Request user list using query ${props.query}`);
-			props.requestPosts(props.query);
+			props.requestUsers(props.query);
 		}
 
-		if (single && !props.requestingPost) {
+		if (single && !props.requestingUser) {
 			debug(`Request single user ${props.userSlug}`);
-			props.requestPost(props.userSlug);
+			props.requestUser(props.userSlug);
 		}
 	}
 
@@ -48,29 +48,29 @@ class QueryPosts extends Component {
 	}
 }
 
-QueryPosts.propTypes = {
+QueryUsers.propTypes = {
 	userSlug: PropTypes.string,
 	query: PropTypes.object,
-	requestingPosts: PropTypes.bool,
-	requestPosts: PropTypes.func
+	requestingUsers: PropTypes.bool,
+	requestUsers: PropTypes.func
 };
 
-QueryPosts.defaultProps = {
-	requestPosts: () => {}
+QueryUsers.defaultProps = {
+	requestUsers: () => {}
 };
 
 export default connect(
 	(state, ownProps) => {
 		const {userSlug, query} = ownProps;
 		return {
-			requestingPost: isRequestingPost(state, userSlug),
-			requestingPosts: isRequestingPostsForQuery(state, query)
+			requestingUser: isRequestingUser(state, userSlug),
+			requestingUsers: isRequestingUsersForQuery(state, query)
 		};
 	},
 	(dispatch) => {
 		return bindActionCreators({
-			requestPosts,
-			requestPost
+			requestUsers,
+			requestUser
 		}, dispatch);
 	}
-)(QueryPosts);
+)(QueryUsers);
