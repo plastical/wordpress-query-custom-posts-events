@@ -2,95 +2,95 @@
  * Internal dependencies
  */
 import {
-	getSerializedUsersQuery
+	getSerializedEventsQuery
 } from './utils';
 
 /**
- * Returns a user object by its global ID.
+ * Returns a event object by its global ID.
  *
  * @param  {Object} state    Global state tree
- * @param  {String} globalId User global ID
- * @return {Object}          User object
+ * @param  {String} globalId Event global ID
+ * @return {Object}          Event object
  */
-export function getUser(state, globalId) {
-	return state.users.items[globalId];
+export function getEvent(state, globalId) {
+	return state.events.items[globalId];
 }
 
 /**
- * Returns an array of users for the users query, or null if no users have been
+ * Returns an array of events for the events query, or null if no events have been
  * received.
  *
  * @param  {Object}  state  Global state tree
- * @param  {Object}  query  User query object
- * @return {?Array}         Users for the user query
+ * @param  {Object}  query  Event query object
+ * @return {?Array}         Events for the event query
  */
-export function getUsersForQuery(state, query) {
-	const serializedQuery = getSerializedUsersQuery(query);
-	if (!state.users.queries[serializedQuery]) {
+export function getEventsForQuery(state, query) {
+	const serializedQuery = getSerializedEventsQuery(query);
+	if (!state.events.queries[serializedQuery]) {
 		return null;
 	}
 
-	return state.users.queries[serializedQuery].map((globalId) => {
-		return getUser(state, globalId);
+	return state.events.queries[serializedQuery].map((globalId) => {
+		return getEvent(state, globalId);
 	}).filter(Boolean);
 }
 
 /**
- * Returns true if currently requesting users for the users query, or false
+ * Returns true if currently requesting events for the events query, or false
  * otherwise.
  *
  * @param  {Object}  state  Global state tree
- * @param  {Object}  query  User query object
- * @return {Boolean}        Whether users are being requested
+ * @param  {Object}  query  Event query object
+ * @return {Boolean}        Whether events are being requested
  */
-export function isRequestingUsersForQuery(state, query) {
-	const serializedQuery = getSerializedUsersQuery(query);
-	return !!state.users.queryRequests[serializedQuery];
+export function isRequestingEventsForQuery(state, query) {
+	const serializedQuery = getSerializedEventsQuery(query);
+	return !!state.events.queryRequests[serializedQuery];
 }
 
 /**
  * Returns the number of total pages available for a given query.
  *
  * @param  {Object}  state  Global state tree
- * @param  {Object}  query  User query object
+ * @param  {Object}  query  Event query object
  * @return {int}            Number of pages
  */
 export function getTotalPagesForQuery(state, query) {
-	const serializedQuery = getSerializedUsersQuery(query);
-	if (!state.users.totalPages[serializedQuery]) {
+	const serializedQuery = getSerializedEventsQuery(query);
+	if (!state.events.totalPages[serializedQuery]) {
 		return 1;
 	}
 
-	return parseInt(state.users.totalPages[serializedQuery], 10);
+	return parseInt(state.events.totalPages[serializedQuery], 10);
 }
 
 /**
- * Returns true if a request is in progress for the specified user, or
+ * Returns true if a request is in progress for the specified event, or
  * false otherwise.
  *
  * @param  {Object}  state     Global state tree
- * @param  {String}  userSlug  User Slug
+ * @param  {String}  eventSlug  Event Slug
  * @return {Boolean}           Whether request is in progress
  */
-export function isRequestingUser(state, userSlug) {
-	if (!state.users.requests) {
+export function isRequestingEvent(state, eventSlug) {
+	if (!state.events.requests) {
 		return false;
 	}
 
-	return !!state.users.requests[userSlug];
+	return !!state.events.requests[eventSlug];
 }
 
 /**
- * Returns the User ID for a given page slug
+ * Returns the Event ID for a given page slug
  *
  * @param  {Object}  state  Global state tree
- * @param  {string}  slug   User slug
- * @return {int}            User ID
+ * @param  {string}  slug   Event slug
+ * @return {int}            Event ID
  */
-export function getUserIdFromSlug(state, slug) {
-	if (!state.users.slugs[slug]) {
+export function getEventIdFromSlug(state, slug) {
+	if (!state.events.slugs[slug]) {
 		return false;
 	}
 
-	return state.users.slugs[slug];
+	return state.events.slugs[slug];
 }

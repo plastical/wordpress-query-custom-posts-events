@@ -9,16 +9,16 @@ import keyBy from 'lodash/keyBy';
  * Internal dependencies
  */
 import * as selectors from '../src/selectors';
-import users from './fixtures/users';
+import events from './fixtures/events';
 
-const usersById = keyBy(users, 'id');
+const eventsById = keyBy(events, 'id');
 
 const state = deepFreeze({
-	users: {
-		items: usersById,
+	events: {
+		items: eventsById,
 		requests: {
-			'wclark': false,
-			'pending-user': true,
+			'test-event': false,
+			'pending-event': true,
 		},
 		totalPages: {
 			'{"paged":1}': '3',
@@ -40,98 +40,98 @@ const state = deepFreeze({
 			]
 		},
 		slugs: {
-			'wclark': 2,
-			'joanne-smith': 5,
-			'robrad': 6,
-			'mattspring': 8,
+			'test-event': 2,
+			'another-event': 5,
+			'another-event-another-event': 6,
+			'event-another-event': 8,
 		}
 	}
 });
 
-describe('User selectors', function() {
-	it('should contain isRequestingUser method', function() {
-		expect(selectors.isRequestingUser).to.be.a('function');
+describe('Event selectors', function() {
+	it('should contain isRequestingEvent method', function() {
+		expect(selectors.isRequestingEvent).to.be.a('function');
 	});
 
-	it('should contain getUserIdFromSlug method', function() {
-		expect(selectors.getUserIdFromSlug).to.be.a('function');
+	it('should contain getEventIdFromSlug method', function() {
+		expect(selectors.getEventIdFromSlug).to.be.a('function');
 	});
 
-	it('should contain getUser method', function() {
-		expect(selectors.getUser).to.be.a('function');
+	it('should contain getEvent method', function() {
+		expect(selectors.getEvent).to.be.a('function');
 	});
 
-	it('should contain isRequestingUsersForQuery method', function() {
-		expect(selectors.isRequestingUsersForQuery).to.be.a('function');
+	it('should contain isRequestingEventsForQuery method', function() {
+		expect(selectors.isRequestingEventsForQuery).to.be.a('function');
 	});
 
-	it('should contain getUsersForQuery method', function() {
-		expect(selectors.getUsersForQuery).to.be.a('function');
+	it('should contain getEventsForQuery method', function() {
+		expect(selectors.getEventsForQuery).to.be.a('function');
 	});
 
 	it('should contain getTotalPagesForQuery method', function() {
 		expect(selectors.getTotalPagesForQuery).to.be.a('function');
 	});
 
-	describe('isRequestingUser', function() {
-		it('Should get `false` if the user has not been requested yet', function() {
-			expect(selectors.isRequestingUser(state, 'unrequested-user')).to.be.false;
+	describe('isRequestingEvent', function() {
+		it('Should get `false` if the event has not been requested yet', function() {
+			expect(selectors.isRequestingEvent(state, 'unrequested-event')).to.be.false;
 		});
 
-		it('Should get `false` if this user has already been fetched', function() {
-			expect(selectors.isRequestingUser(state, 'wclark')).to.be.false;
+		it('Should get `false` if this event has already been fetched', function() {
+			expect(selectors.isRequestingEvent(state, 'test-event')).to.be.false;
 		});
 
-		it('Should get `true` if this user is being fetched', function() {
-			expect(selectors.isRequestingUser(state, 'pending-user')).to.be.true;
-		});
-	});
-
-	describe('getUserIdFromSlug', function() {
-		it('Should get `false` if the user has not been requested yet', function() {
-			expect(selectors.getUserIdFromSlug( state, 'unrequested-user')).to.be.false;
-		});
-
-		it( 'Should get the user ID if this user is in our state', function() {
-			expect(selectors.getUserIdFromSlug( state, 'wclark')).to.eql(2);
+		it('Should get `true` if this event is being fetched', function() {
+			expect(selectors.isRequestingEvent(state, 'pending-event')).to.be.true;
 		});
 	});
 
-	describe('getUser', function() {
-		it('Should get `undefined` if the user has not been requested yet', function() {
-			expect(selectors.getUser(state, 10)).to.be.undefined;
+	describe('getEventIdFromSlug', function() {
+		it('Should get `false` if the event has not been requested yet', function() {
+			expect(selectors.getEventIdFromSlug( state, 'unrequested-event')).to.be.false;
 		});
 
-		it('Should get the user object if this user is in our state', function() {
-			expect(selectors.getUser(state, 2)).to.eql(usersById[2]);
-		});
-	});
-
-	describe('isRequestingUsersForQuery', function() {
-		it('Should get `false` if the user query has not been requested yet', function() {
-			expect(selectors.isRequestingUsersForQuery(state, { paged: 4 })).to.be.false;
-		});
-
-		it('Should get `false` if this user query has already been fetched', function() {
-			expect(selectors.isRequestingUsersForQuery(state, { paged: 1 } )).to.be.false;
-		});
-
-		it('Should get `true` if this user query is being fetched', function() {
-			expect(selectors.isRequestingUsersForQuery(state, { paged: 3 })).to.be.true;
+		it( 'Should get the event ID if this event is in our state', function() {
+			expect(selectors.getEventIdFromSlug( state, 'test-event')).to.eql(2);
 		});
 	});
 
-	describe('getUsersForQuery', function() {
-		it('Should get null if the user query has not been requested yet', function() {
-			expect(selectors.getUsersForQuery(state, { paged: 4 })).to.be.null;
+	describe('getEvent', function() {
+		it('Should get `undefined` if the event has not been requested yet', function() {
+			expect(selectors.getEvent(state, 10)).to.be.undefined;
 		});
 
-		it('Should get a list of user objects if the response is in our state', function() {
-			const userList = [
-				usersById[2],
-				usersById[5]
+		it('Should get the event object if this event is in our state', function() {
+			expect(selectors.getEvent(state, 2)).to.eql(eventsById[2]);
+		});
+	});
+
+	describe('isRequestingEventsForQuery', function() {
+		it('Should get `false` if the event query has not been requested yet', function() {
+			expect(selectors.isRequestingEventsForQuery(state, { paged: 4 })).to.be.false;
+		});
+
+		it('Should get `false` if this event query has already been fetched', function() {
+			expect(selectors.isRequestingEventsForQuery(state, { paged: 1 } )).to.be.false;
+		});
+
+		it('Should get `true` if this event query is being fetched', function() {
+			expect(selectors.isRequestingEventsForQuery(state, { paged: 3 })).to.be.true;
+		});
+	});
+
+	describe('getEventsForQuery', function() {
+		it('Should get null if the event query has not been requested yet', function() {
+			expect(selectors.getEventsForQuery(state, { paged: 4 })).to.be.null;
+		});
+
+		it('Should get a list of event objects if the response is in our state', function() {
+			const eventList = [
+				eventsById[2],
+				eventsById[5]
 			];
-			expect(selectors.getUsersForQuery(state, { paged: 1 })).to.eql(userList);
+			expect(selectors.getEventsForQuery(state, { paged: 1 })).to.eql(eventList);
 		});
 	});
 

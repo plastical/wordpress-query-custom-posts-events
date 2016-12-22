@@ -10,13 +10,13 @@ import keyBy from 'lodash/keyBy';
  */
 import {
 	// action-types
-	USER_REQUEST,
-	USER_REQUEST_FAILURE,
-	USER_REQUEST_SUCCESS,
-	USERS_RECEIVE,
-	USERS_REQUEST,
-	USERS_REQUEST_FAILURE,
-	USERS_REQUEST_SUCCESS,
+	EVENT_REQUEST,
+	EVENT_REQUEST_FAILURE,
+	EVENT_REQUEST_SUCCESS,
+	EVENTS_RECEIVE,
+	EVENTS_REQUEST,
+	EVENTS_REQUEST_FAILURE,
+	EVENTS_REQUEST_SUCCESS,
 	// reducers
 	items,
 	requests,
@@ -26,26 +26,26 @@ import {
 	slugs
 } from '../src/state';
 
-import users from './fixtures/users';
-import user from './fixtures/single';
+import events from './fixtures/events';
+import event from './fixtures/single';
 
-describe('User reducer', () => {
+describe('Event reducer', () => {
 	describe('items', () => {
 		it( 'should have no change by default', () => {
 			const newState = items(undefined, {});
 			expect(newState).to.eql( {});
 		});
 
-		it('should store the new users in state', () => {
-			const newState = items(undefined, { type: USERS_RECEIVE, users });
-			const usersById = keyBy(users, 'id');
-			expect(newState).to.eql(usersById);
+		it('should store the new events in state', () => {
+			const newState = items(undefined, { type: EVENTS_RECEIVE, events });
+			const eventsById = keyBy(events, 'id');
+			expect(newState).to.eql(eventsById);
 		});
 
-		it('should add new users onto the existing user array', () => {
-			const originalState = deepFreeze(keyBy(users, 'id'));
-			const newState = items( originalState, {type: USERS_RECEIVE, users: [user]});
-			expect(newState).to.eql({...originalState, 9: user});
+		it('should add new events onto the existing event array', () => {
+			const originalState = deepFreeze(keyBy(events, 'id'));
+			const newState = items( originalState, {type: EVENTS_RECEIVE, events: [event]});
+			expect(newState).to.eql({...originalState, 9: event});
 		});
 	});
 
@@ -56,25 +56,25 @@ describe('User reducer', () => {
 		});
 
 		it('should track the requesting state of new queries', () => {
-			const newState = queryRequests(undefined, {type: USERS_REQUEST, query: {paged: 1}});
+			const newState = queryRequests(undefined, {type: EVENTS_REQUEST, query: {paged: 1}});
 			expect(newState).to.eql({'{"paged":1}': true});
 		});
 
 		it('should track the requesting state of successful queries', () => {
 			const originalState = deepFreeze({'{"paged":1}': true});
-			const newState = queryRequests(originalState, {type: USERS_REQUEST_SUCCESS, query: {paged: 1}});
+			const newState = queryRequests(originalState, {type: EVENTS_REQUEST_SUCCESS, query: {paged: 1}});
 			expect(newState).to.eql({'{"paged":1}': false});
 		});
 
 		it('should track the requesting state of failed queries', () => {
 			const originalState = deepFreeze({'{"paged":1}': true });
-			const newState = queryRequests(originalState, {type: USERS_REQUEST_FAILURE, query: {paged: 1}});
+			const newState = queryRequests(originalState, {type: EVENTS_REQUEST_FAILURE, query: {paged: 1}});
 			expect(newState).to.eql({'{"paged":1}': false});
 		});
 
 		it('should track the requesting state of additional queries', () => {
 			const originalState = deepFreeze({'{"paged":1}': false });
-			const newState = queryRequests(originalState, {type: USERS_REQUEST, query: {paged: 2}});
+			const newState = queryRequests(originalState, {type: EVENTS_REQUEST, query: {paged: 2}});
 			expect(newState).to.eql({...originalState, '{"paged":2}': true});
 		} );
 	});
@@ -85,27 +85,27 @@ describe('User reducer', () => {
 			expect(newState).to.eql({});
 		});
 
-		it('should track the requesting state of a new user', () => {
-			const newState = requests(undefined, {type: USER_REQUEST, userSlug: 'some-pending-slug'});
+		it('should track the requesting state of a new event', () => {
+			const newState = requests(undefined, {type: EVENT_REQUEST, eventSlug: 'some-pending-slug'});
 			expect(newState).to.eql({'some-pending-slug': true});
 		});
 
-		it('should track the requesting state of successful user requests', () => {
+		it('should track the requesting state of successful event requests', () => {
 			const originalState = deepFreeze({'some-pending-slug': true});
-			const newState = requests(originalState, {type: USER_REQUEST_SUCCESS, userSlug: 'some-pending-slug'});
+			const newState = requests(originalState, {type: EVENT_REQUEST_SUCCESS, eventSlug: 'some-pending-slug'});
 			expect(newState).to.eql({'some-pending-slug': false});
 		});
 
-		it('should track the requesting state of failed user requests', () => {
+		it('should track the requesting state of failed event requests', () => {
 			const originalState = deepFreeze({'some-pending-slug': true});
-			const newState = requests(originalState, {type: USER_REQUEST_FAILURE, userSlug: 'some-pending-slug'});
+			const newState = requests(originalState, {type: EVENT_REQUEST_FAILURE, eventSlug: 'some-pending-slug'});
 			expect(newState).to.eql({ 'some-pending-slug': false } );
 		});
 
-		it('should track the requesting state of additional user requests', () => {
+		it('should track the requesting state of additional event requests', () => {
 			const originalState = deepFreeze({'some-pending-slug': true});
-			const newState = requests(originalState, {type: USER_REQUEST, userSlug: 'a-new-user'});
-			expect(newState).to.eql({...originalState, 'a-new-user': true});
+			const newState = requests(originalState, {type: EVENT_REQUEST, eventSlug: 'a-new-event'});
+			expect(newState).to.eql({...originalState, 'a-new-event': true});
 		});
 	});
 
@@ -115,22 +115,22 @@ describe('User reducer', () => {
 			expect(newState).to.eql({});
 		});
 
-		it('should track the user IDs for requested queries', () => {
+		it('should track the event IDs for requested queries', () => {
 			const action = {
-				type: USERS_REQUEST_SUCCESS,
+				type: EVENTS_REQUEST_SUCCESS,
 				query: {paged: 1},
-				users
+				events
 			};
 			const newState = queries(undefined, action);
 			expect(newState).to.eql({ '{"paged":1}': [2, 5, 6, 8] });
 		});
 
-		it('should track the user IDs for additional requested queries', () => {
+		it('should track the event IDs for additional requested queries', () => {
 			const originalState = deepFreeze({ '{"paged":1}': [2, 5, 6, 8] });
 			const action = {
-				type: USERS_REQUEST_SUCCESS,
+				type: EVENTS_REQUEST_SUCCESS,
 				query: {paged: 2},
-				users: [user]
+				events: [event]
 			};
 			const newState = queries(originalState, action);
 			expect(newState).to.eql({
@@ -146,27 +146,27 @@ describe('User reducer', () => {
 			expect( newState ).to.eql({});
 		});
 
-		it('should track the user IDs for requested user slugs', () => {
+		it('should track the event IDs for requested event slugs', () => {
 			const action = {
-				type: USER_REQUEST_SUCCESS,
-				userId: 2,
-				userSlug: 'wclark',
+				type: EVENT_REQUEST_SUCCESS,
+				eventId: 2,
+				eventSlug: 'test-event',
 			};
 			const newState = slugs(undefined, action);
-			expect(newState).to.eql({'wclark': 2});
+			expect(newState).to.eql({'test-event': 2});
 		});
 
-		it('should track the user IDs for additional requested user slugs', () => {
-			const originalState = deepFreeze({'wclark': 2});
+		it('should track the event IDs for additional requested event slugs', () => {
+			const originalState = deepFreeze({'test-event': 2});
 			const action = {
-				type: USER_REQUEST_SUCCESS,
-				userId: 9,
-				userSlug: 'billy-bob',
+				type: EVENT_REQUEST_SUCCESS,
+				eventId: 9,
+				eventSlug: 'test-oooo-event',
 			};
 			const newState = slugs(originalState, action);
 			expect(newState).to.eql({
-				'wclark': 2,
-				'billy-bob': 9
+				'test-event': 2,
+				'test-oooo-event': 9
 			});
 		});
 	});
@@ -179,7 +179,7 @@ describe('User reducer', () => {
 
 		it('should track the pagination count for requested queries', () => {
 			const action = {
-				type: USERS_REQUEST_SUCCESS,
+				type: EVENTS_REQUEST_SUCCESS,
 				query: {paged: 1},
 				totalPages: 3
 			};

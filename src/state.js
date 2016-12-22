@@ -12,22 +12,22 @@ const api = new API({
 });
 
 import {
-	getSerializedUsersQuery
+	getSerializedEventsQuery
 } from './utils';
 
 /**
- * User actions
+ * Event actions
  */
-export const USER_REQUEST = 'wordpress-redux/user/REQUEST';
-export const USER_REQUEST_SUCCESS = 'wordpress-redux/user/REQUEST_SUCCESS';
-export const USER_REQUEST_FAILURE = 'wordpress-redux/user/REQUEST_FAILURE';
-export const USERS_RECEIVE = 'wordpress-redux/users/RECEIVE';
-export const USERS_REQUEST = 'wordpress-redux/users/REQUEST';
-export const USERS_REQUEST_SUCCESS = 'wordpress-redux/users/REQUEST_SUCCESS';
-export const USERS_REQUEST_FAILURE = 'wordpress-redux/users/REQUEST_FAILURE';
+export const EVENT_REQUEST = 'wordpress-redux/event/REQUEST';
+export const EVENT_REQUEST_SUCCESS = 'wordpress-redux/event/REQUEST_SUCCESS';
+export const EVENT_REQUEST_FAILURE = 'wordpress-redux/event/REQUEST_FAILURE';
+export const EVENTS_RECEIVE = 'wordpress-redux/events/RECEIVE';
+export const EVENTS_REQUEST = 'wordpress-redux/events/REQUEST';
+export const EVENTS_REQUEST_SUCCESS = 'wordpress-redux/events/REQUEST_SUCCESS';
+export const EVENTS_REQUEST_FAILURE = 'wordpress-redux/events/REQUEST_FAILURE';
 
 /**
- * Tracks all known users, indexed by user global ID.
+ * Tracks all known events, indexed by event global ID.
  *
  * @param  {Object} state  Current state
  * @param  {Object} action Action payload
@@ -35,18 +35,18 @@ export const USERS_REQUEST_FAILURE = 'wordpress-redux/users/REQUEST_FAILURE';
  */
 export function items(state = {}, action) {
 	switch (action.type) {
-		case USERS_RECEIVE:
-			const users = keyBy(action.users, 'id');
-			return Object.assign({}, state, users);
+		case EVENTS_RECEIVE:
+			const events = keyBy(action.events, 'id');
+			return Object.assign({}, state, events);
 		default:
 			return state;
 	}
 }
 
 /**
- * Returns the updated user requests state after an action has been
- * dispatched. The state reflects a mapping of user ID to a
- * boolean reflecting whether a request for the user is in progress.
+ * Returns the updated event requests state after an action has been
+ * dispatched. The state reflects a mapping of event ID to a
+ * boolean reflecting whether a request for the event is in progress.
  *
  * @param  {Object} state  Current state
  * @param  {Object} action Action payload
@@ -54,17 +54,17 @@ export function items(state = {}, action) {
  */
 export function requests(state = {}, action) {
 	switch (action.type) {
-		case USER_REQUEST:
-		case USER_REQUEST_SUCCESS:
-		case USER_REQUEST_FAILURE:
-			return Object.assign({}, state, { [action.userSlug]: USER_REQUEST === action.type });
+		case EVENT_REQUEST:
+		case EVENT_REQUEST_SUCCESS:
+		case EVENT_REQUEST_FAILURE:
+			return Object.assign({}, state, { [action.eventSlug]: EVENT_REQUEST === action.type });
 		default:
 			return state;
 	}
 }
 
 /**
- * Returns the updated user query requesting state after an action has been
+ * Returns the updated event query requesting state after an action has been
  * dispatched. The state reflects a mapping of serialized query to whether a
  * network request is in-progress for that query.
  *
@@ -74,12 +74,12 @@ export function requests(state = {}, action) {
  */
 export function queryRequests(state = {}, action) {
 	switch (action.type) {
-		case USERS_REQUEST:
-		case USERS_REQUEST_SUCCESS:
-		case USERS_REQUEST_FAILURE:
-			const serializedQuery = getSerializedUsersQuery(action.query);
+		case EVENTS_REQUEST:
+		case EVENTS_REQUEST_SUCCESS:
+		case EVENTS_REQUEST_FAILURE:
+			const serializedQuery = getSerializedEventsQuery(action.query);
 			return Object.assign({}, state, {
-				[serializedQuery]: USERS_REQUEST === action.type
+				[serializedQuery]: EVENTS_REQUEST === action.type
 			});
 		default:
 			return state;
@@ -96,8 +96,8 @@ export function queryRequests(state = {}, action) {
  */
 export function totalPages(state = {}, action) {
 	switch (action.type) {
-		case USERS_REQUEST_SUCCESS:
-			const serializedQuery = getSerializedUsersQuery(action.query);
+		case EVENTS_REQUEST_SUCCESS:
+			const serializedQuery = getSerializedEventsQuery(action.query);
 			return Object.assign({}, state, {
 				[serializedQuery]: action.totalPages
 			});      
@@ -107,8 +107,8 @@ export function totalPages(state = {}, action) {
 }
 
 /**
- * Returns the updated user query state after an action has been dispatched.
- * The state reflects a mapping of serialized query key to an array of user
+ * Returns the updated event query state after an action has been dispatched.
+ * The state reflects a mapping of serialized query key to an array of event
  * global IDs for the query, if a query response was successfully received.
  *
  * @param  {Object} state  Current state
@@ -117,10 +117,10 @@ export function totalPages(state = {}, action) {
  */
 export function queries(state = {}, action) {
 	switch (action.type) {
-		case USERS_REQUEST_SUCCESS:
-			const serializedQuery = getSerializedUsersQuery(action.query);
+		case EVENTS_REQUEST_SUCCESS:
+			const serializedQuery = getSerializedEventsQuery(action.query);
 			return Object.assign({}, state, {
-				[serializedQuery]: action.users.map((user) => user.id)
+				[serializedQuery]: action.events.map((event) => event.id)
 			});
 		default:
 			return state;
@@ -128,7 +128,7 @@ export function queries(state = {}, action) {
 }
 
 /**
- * Tracks the slug->ID mapping for users
+ * Tracks the slug->ID mapping for events
  *
  * @param  {Object} state  Current state
  * @param  {Object} action Action payload
@@ -136,16 +136,16 @@ export function queries(state = {}, action) {
  */
 export function slugs(state = {}, action) {
 	switch (action.type) {
-		case USER_REQUEST_SUCCESS:
+		case EVENT_REQUEST_SUCCESS:
 			return Object.assign({}, state, {
-				[action.userSlug]: action.userId
+				[action.eventSlug]: action.eventId
 			});
-		case USERS_RECEIVE:
-			const users = reduce(action.users, (memo, u) => {
+		case EVENTS_RECEIVE:
+			const events = reduce(action.events, (memo, u) => {
 				memo[u.slug] = u.id;
 				return memo;
 			}, {});
-			return Object.assign({}, state, users);
+			return Object.assign({}, state, events);
 		default:
 			return state;
 	}
@@ -161,37 +161,37 @@ export default combineReducers({
 });
 
 /**
- * Triggers a network request to fetch users for the specified site and query.
+ * Triggers a network request to fetch events for the specified site and query.
  *
- * @param  {String}   query  User query
+ * @param  {String}   query  Event query
  * @return {Function}        Action thunk
  */
-export function requestUsers(query = {}) {
+export function requestEvents(query = {}) {
 	return (dispatch) => {
 		dispatch({
-			type: USERS_REQUEST,
+			type: EVENTS_REQUEST,
 			query
 		});
 
 		query._embed = true;
 
-		api.get('/wp/v2/users', query).then(users => {
+		api.get('/wp/v2/events', query).then(events => {
 			dispatch({
-				type: USERS_RECEIVE,
-				users
+				type: EVENTS_RECEIVE,
+				events
 			});
-			requestPageCount('/wp/v2/users', query).then(count => {
+			requestPageCount('/wp/v2/events', query).then(count => {
 				dispatch({
-					type: USERS_REQUEST_SUCCESS,
+					type: EVENTS_REQUEST_SUCCESS,
 					query,
 					totalPages: count,
-					users
+					events
 				});
 			} );
 			return null;
 		}).catch((error) => {
 			dispatch({
-				type: USERS_REQUEST_FAILURE,
+				type: EVENTS_REQUEST_FAILURE,
 				query,
 				error
 			});
@@ -200,39 +200,39 @@ export function requestUsers(query = {}) {
 }
 
 /**
- * Triggers a network request to fetch a specific user from a site.
+ * Triggers a network request to fetch a specific event from a site.
  *
- * @param  {string}   userSlug  User slug
+ * @param  {string}   eventSlug  Event slug
  * @return {Function}           Action thunk
  */
-export function requestUser(userSlug) {
+export function requestEvent(eventSlug) {
 	return (dispatch) => {
 		dispatch({
-			type: USER_REQUEST,
-			userSlug
+			type: EVENT_REQUEST,
+			eventSlug
 		});
 
 		const query = {
-			slug: userSlug,
+			slug: eventSlug,
 			_embed: true,
 		};
 
-		api.get('/wp/v2/users', query).then(data => {
-			const user = data[0];
+		api.get('/wp/v2/events', query).then(data => {
+			const event = data[0];
 			dispatch({
-				type: USERS_RECEIVE,
-				users: [user]
+				type: EVENTS_RECEIVE,
+				events: [event]
 			});
 			dispatch({
-				type: USER_REQUEST_SUCCESS,
-				userId: user.id,
-				userSlug
+				type: EVENT_REQUEST_SUCCESS,
+				eventId: event.id,
+				eventSlug
 			});
 			return null;
 		}).catch((error) => {
 			dispatch({
-				type: USER_REQUEST_FAILURE,
-				userSlug,
+				type: EVENT_REQUEST_FAILURE,
+				eventSlug,
 				error
 			});
 		});

@@ -1,0 +1,202 @@
+[{
+  "id":2,
+  "date":"2016-12-09T10:47:01",
+  "date_gmt":"2016-12-09T10:47:01",
+  "guid":{
+    "rendered":"https:\/\/local.agire.ch\/?post_type=events&#038;p=8"
+  },
+  "modified":"2016-12-09T10:47:01",
+  "modified_gmt":"2016-12-09T10:47:01",
+  "slug":"test-event",
+  "type":"events",
+  "link":"https:\/\/local.agire.ch\/events\/test-event\/",
+  "title":{
+    "rendered":"Test event"
+  },
+  "content":{
+    "rendered":"<p>This is a test<\/p>\n",
+    "protected":false
+  },
+  "excerpt":{
+    "rendered":"<p>This is a test<\/p>\n",
+    "protected":false
+  },
+  "featured_media":0,
+  "comment_status":"closed",
+  "ping_status":"closed",
+  "template":"",
+  "events_startdate":"1481371260",
+  "events_enddate":"1481378400",
+  "events_featured":"no",
+  "events_attendform":"no",
+  "_links":{
+    "self":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events\/8"
+    }],
+    "collection":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events"
+    }],
+    "about":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/types\/events"
+    }],
+    "replies":[{
+      "embeddable":true,
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/comments?post=8"
+    }],
+    "wp:attachment":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/media?parent=8"
+    }],
+    "curies":[{
+      "name":"wp",
+      "href":"https:\/\/api.w.org\/{rel}",
+      "templated":true
+    }]
+  }
+},
+{
+  "id":5,
+  "date":"2016-12-09T12:40:02",
+  "date_gmt":"2016-12-09T12:40:02",
+  "guid":{"rendered":"https:\/\/local.agire.ch\/?post_type=events&#038;p=9"},
+  "modified":"2016-12-22T15:03:41",
+  "modified_gmt":"2016-12-22T14:03:41",
+  "slug":"another-event",
+  "type":"events",
+  "link":"https:\/\/local.agire.ch\/events\/another-event\/",
+  "title":{"rendered":"Another event"},
+  "content":{
+    "rendered":"<p>This one is another event&#8230; <\/p>\n",
+    "protected":false
+  },
+  "excerpt":{
+    "rendered":"<p>This one is another event&#8230;<\/p>\n",
+    "protected":false
+  },
+  "featured_media":0,
+  "comment_status":"closed",
+  "ping_status":"closed",
+  "template":"",
+  "events_startdate":"1482944400",
+  "events_enddate":"1482958800",
+  "events_featured":"yes",
+  "events_attendform":"yes",
+  "_links":{
+    "self":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events\/9"
+    }],
+    "collection":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events"
+    }],
+    "about":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/types\/events"
+    }],
+    "replies":[{
+      "embeddable":true,"href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/comments?post=9"
+    }],
+    "wp:attachment":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/media?parent=9"
+    }],
+    "curies":[{
+      "name":"wp","href":"https:\/\/api.w.org\/{rel}",
+      "templated":true
+    }]
+  }
+},
+{
+  "id":6,
+  "date":"2016-12-09T12:40:02",
+  "date_gmt":"2016-12-09T12:40:02",
+  "guid":{"rendered":"https:\/\/local.agire.ch\/?post_type=events&#038;p=6"},
+  "modified":"2016-12-22T15:03:41",
+  "modified_gmt":"2016-12-22T14:03:41",
+  "slug":"another-event-another-event",
+  "type":"events",
+  "link":"https:\/\/local.agire.ch\/events\/another-event-another-event\/",
+  "title":{"rendered":"Another event Another event"},
+  "content":{
+    "rendered":"<p>This one is another event&#8230; <\/p>\n",
+    "protected":false
+  },
+  "excerpt":{
+    "rendered":"<p>This one is another event&#8230;<\/p>\n",
+    "protected":false
+  },
+  "featured_media":0,
+  "comment_status":"closed",
+  "ping_status":"closed",
+  "template":"",
+  "events_startdate":"1482944400",
+  "events_enddate":"1482958800",
+  "events_featured":"yes",
+  "events_attendform":"yes",
+  "_links":{
+    "self":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events\/6"
+    }],
+    "collection":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events"
+    }],
+    "about":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/types\/events"
+    }],
+    "replies":[{
+      "embeddable":true,"href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/comments?post=6"
+    }],
+    "wp:attachment":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/media?parent=6"
+    }],
+    "curies":[{
+      "name":"wp","href":"https:\/\/api.w.org\/{rel}",
+      "templated":true
+    }]
+  }
+},
+{
+  "id":8,
+  "date":"2016-12-09T12:40:02",
+  "date_gmt":"2016-12-09T12:40:02",
+  "guid":{"rendered":"https:\/\/local.agire.ch\/?post_type=events&#038;p=9"},
+  "modified":"2016-12-22T15:03:41",
+  "modified_gmt":"2016-12-22T14:03:41",
+  "slug":"event-another-event",
+  "type":"events",
+  "link":"https:\/\/local.agire.ch\/events\/event-another-event\/",
+  "title":{"rendered":"Event another event"},
+  "content":{
+    "rendered":"<p>This one is another event&#8230; <\/p>\n",
+    "protected":false
+  },
+  "excerpt":{
+    "rendered":"<p>This one is another event&#8230;<\/p>\n",
+    "protected":false
+  },
+  "featured_media":0,
+  "comment_status":"closed",
+  "ping_status":"closed",
+  "template":"",
+  "events_startdate":"1482944400",
+  "events_enddate":"1482958800",
+  "events_featured":"yes",
+  "events_attendform":"yes",
+  "_links":{
+    "self":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events\/8"
+    }],
+    "collection":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events"
+    }],
+    "about":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/types\/events"
+    }],
+    "replies":[{
+      "embeddable":true,"href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/comments?post=8"
+    }],
+    "wp:attachment":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/media?parent=8"
+    }],
+    "curies":[{
+      "name":"wp","href":"https:\/\/api.w.org\/{rel}",
+      "templated":true
+    }]
+  }
+}]

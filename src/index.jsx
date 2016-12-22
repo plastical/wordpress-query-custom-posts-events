@@ -10,18 +10,18 @@ import debugFactory from 'debug';
 /**
  * Internal dependencies
  */
-import { isRequestingUsersForQuery, isRequestingUser } from './selectors';
-import { requestUsers, requestUser } from './state';
+import { isRequestingEventsForQuery, isRequestingEvent } from './selectors';
+import { requestEvents, requestEvent } from './state';
 
-const debug = debugFactory( 'query:user' );
+const debug = debugFactory( 'query:event' );
 
-class QueryUsers extends Component {
+class QueryEvents extends Component {
 	componentWillMount() {
 		this.request(this.props);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.userSlug === nextProps.userSlug &&
+		if (this.props.eventSlug === nextProps.eventSlug &&
 				shallowEqual( this.props.query, nextProps.query)) {
 			return;
 		}
@@ -30,16 +30,16 @@ class QueryUsers extends Component {
 	}
 
 	request(props) {
-		const single = !!props.userSlug;
+		const single = !!props.eventSlug;
 
-		if (!single && !props.requestingUsers) {
-			debug(`Request user list using query ${props.query}`);
-			props.requestUsers(props.query);
+		if (!single && !props.requestingEvents) {
+			debug(`Request event list using query ${props.query}`);
+			props.requestEvents(props.query);
 		}
 
-		if (single && !props.requestingUser) {
-			debug(`Request single user ${props.userSlug}`);
-			props.requestUser(props.userSlug);
+		if (single && !props.requestingEvent) {
+			debug(`Request single event ${props.eventSlug}`);
+			props.requestEvent(props.eventSlug);
 		}
 	}
 
@@ -48,29 +48,29 @@ class QueryUsers extends Component {
 	}
 }
 
-QueryUsers.propTypes = {
-	userSlug: PropTypes.string,
+QueryEvents.propTypes = {
+	eventSlug: PropTypes.string,
 	query: PropTypes.object,
-	requestingUsers: PropTypes.bool,
-	requestUsers: PropTypes.func
+	requestingEvents: PropTypes.bool,
+	requestEvents: PropTypes.func
 };
 
-QueryUsers.defaultProps = {
-	requestUsers: () => {}
+QueryEvents.defaultProps = {
+	requestEvents: () => {}
 };
 
 export default connect(
 	(state, ownProps) => {
-		const {userSlug, query} = ownProps;
+		const {eventSlug, query} = ownProps;
 		return {
-			requestingUser: isRequestingUser(state, userSlug),
-			requestingUsers: isRequestingUsersForQuery(state, query)
+			requestingEvent: isRequestingEvent(state, eventSlug),
+			requestingEvents: isRequestingEventsForQuery(state, query)
 		};
 	},
 	(dispatch) => {
 		return bindActionCreators({
-			requestUsers,
-			requestUser
+			requestEvents,
+			requestEvent
 		}, dispatch);
 	}
-)(QueryUsers);
+)(QueryEvents);

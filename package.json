@@ -1,10 +1,10 @@
 {
-  "name": "wordpress-query-users",
-  "version": "0.1.1",
-  "description": "A component for fetching WordPress users from the REST API.",
+  "name": "wordpress-query-custom-posts-events",
+  "version": "0.1.0",
+  "description": "A component for fetching WordPress events custom posts from the REST API.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryanvannin/wordpress-query-users.git"
+    "url": "git+https://github.com/ryanvannin/wordpress-query-custom-posts-events.git"
   },
   "keywords": [
     "react",
@@ -58,9 +58,9 @@
     "postversion": "git push && git push --tags"
   },
   "bugs": {
-    "url": "https://github.com/ryanvannin/wordpress-query-users/issues"
+    "url": "https://github.com/ryanvannin/wordpress-query-custom-posts-events/issues"
   },
-  "homepage": "https://github.com/ryanvannin/wordpress-query-users#readme",
+  "homepage": "https://github.com/ryanvannin/wordpress-query-custom-posts-events#readme",
   "directories": {
     "test": "test"
   },

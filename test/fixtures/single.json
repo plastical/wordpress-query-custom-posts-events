@@ -1,22 +1,55 @@
 {
-  "id": 9,
-  "name": "Billy Bob",
-  "url": "",
-  "description": "",
-  "link": "https:\/\/localhost\/author\/billy-bob\/",
-  "slug": "billy-bob",
-  "avatar_urls": "",
-  "meta": {},
-  "_links": {
-    "self": [
-      {
-        "href":"https:\/\/localhost\/wp-json\/wp\/v2\/users\/9"
-      }
-    ],
-    "collection": [
-      {
-        "href":"https:\/\/localhost\/wp-json\/wp\/v2\/users"
-      }
-    ]
+  "id":9,
+  "date":"2016-12-09T10:47:01",
+  "date_gmt":"2016-12-09T10:47:01",
+  "guid":{
+    "rendered":"https:\/\/local.agire.ch\/?post_type=events&#038;p=8"
+  },
+  "modified":"2016-12-09T10:47:01",
+  "modified_gmt":"2016-12-09T10:47:01",
+  "slug":"test-oooo-event",
+  "type":"events",
+  "link":"https:\/\/local.agire.ch\/events\/test-event\/",
+  "title":{
+    "rendered":"Test OOOO event"
+  },
+  "content":{
+    "rendered":"<p>This is a test<\/p>\n",
+    "protected":false
+  },
+  "excerpt":{
+    "rendered":"<p>This is a test<\/p>\n",
+    "protected":false
+  },
+  "featured_media":0,
+  "comment_status":"closed",
+  "ping_status":"closed",
+  "template":"",
+  "events_startdate":"1481371260",
+  "events_enddate":"1481378400",
+  "events_featured":"no",
+  "events_attendform":"no",
+  "_links":{
+    "self":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events\/9"
+    }],
+    "collection":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/events"
+    }],
+    "about":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/types\/events"
+    }],
+    "replies":[{
+      "embeddable":true,
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/comments?post=9"
+    }],
+    "wp:attachment":[{
+      "href":"https:\/\/local.agire.ch\/wp-json\/wp\/v2\/media?parent=9"
+    }],
+    "curies":[{
+      "name":"wp",
+      "href":"https:\/\/api.w.org\/{rel}",
+      "templated":true
+    }]
   }
 }
