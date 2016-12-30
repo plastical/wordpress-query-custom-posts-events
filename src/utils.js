@@ -4,18 +4,13 @@
 import omitBy from 'lodash/omitBy';
 
 const DEFAULT_EVENTS_QUERY = {
-	number: 10,
-	offset: 0,
-  role: 'Subscriber',
-	order_by: 'meta_value',
-  meta_key: 'events_startdate',
-  meta_query: {
-    key: 'events_enddate',
-    compare: '<=',
-    value: Date.now(),
-  },
-	order: 'ASC',
-	fields: 'all_with_meta'
+  _embed: true,
+  number: 10,
+  offset: 0,
+  order_by: 'meta_value',
+  type: 'events',
+  order: 'ASC',
+  fields: 'all_with_meta'
 };
 
 /**
